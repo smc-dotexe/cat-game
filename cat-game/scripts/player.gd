@@ -35,22 +35,34 @@ func _physics_process(delta: float) -> void:
 	if horz_direction > 0:
 		animated_sprite.play("move-right")
 		velocity.x = horz_direction * SPEED
+		if position.x >= view_width-10:
+			print("RIGHT BOUNDARY HIT")
+			velocity.x = 0
 	elif horz_direction < 0:
 		animated_sprite.play("move-left")
 		velocity.x = horz_direction * SPEED
+		if position.x <= view_width * -1:
+			print("LEFT BOUNDARY HIT")
+			velocity.x = 0
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		
 	if vert_direction > 0:
 		velocity.y = vert_direction * SPEED
 		animated_sprite.play("move-down")
+		if position.y >= view_height:
+			print("BOTTOM BOUNDARY HIT")
+			velocity.y = 0
 	elif vert_direction < 0:
 		velocity.y = vert_direction * SPEED
 		animated_sprite.play("move-up")
+		if position.y <= view_height * -1:
+			print("TOP BOUNDARY HIT")
+			velocity.y = 0
 	else:
 		velocity.y = move_toward(velocity.y, 0, SPEED)
 		
-	#if position.x >= view_width:
+	#if position.x >= view_width:www
 		#position.x = -view_width 
 	#if position.x <= 5:
 		#position.x = get_viewport().size.x + -5
